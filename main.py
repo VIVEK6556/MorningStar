@@ -72,8 +72,8 @@ class morning_star:
             print('Web site exists:',Web_site_link)
         else:
             print('Web site does not exist:',Web_site_link)
-            self.Download_Excel()
             self.cnt+=1
+            self.Download_Excel()
         self.driver = wb.Chrome(executable_path="driver/chromedriver.exe", options=options)
         self.driver.maximize_window()
         self.driver.get('https://www.morningstar.com/stocks/'+self.exchange+'/'+self.symbol+'/financials')
@@ -86,7 +86,7 @@ class morning_star:
             if new_Hieght == last_Hieght:
                 break
             last_Hieght = new_Hieght
-        time.sleep(30)
+        time.sleep(20)
         Income_1 = BeautifulSoup(self.driver.page_source, 'lxml')
         date_currency = Income_1.find_all('div', {'class': 'sal-small-12 sal-columns'})[3].text
         self.date = date_currency[41:47]
@@ -104,24 +104,24 @@ class morning_star:
         self.driver.execute_script('window.scrollTo(0,300)')
         WebDriverWait(self.driver, 60).until(Ec.presence_of_element_located((By.XPATH,
                                 "/html/body/div[2]/div/div/div/div[2]/div[3]/div/main/div/div/div[1]/section/sal-components/div/sal-components-stocks-financials/div/div/div/div/div/div[2]/div[1]/div[2]/div/div/div/div/div/div[2]/div/button"))).click()
-        time.sleep(30)
+        time.sleep(15)
         check=os.path.isfile(''+self.path+'\Dump_Folder\Dump\Income Statement_Annual_As Originally Reported.xls')
         if check == False:
             WebDriverWait(self.driver, 60).until(Ec.presence_of_element_located((By.XPATH,
                                                                             "/html/body/div[2]/div/div/div/div[2]/div[3]/div/main/div/div/div[1]/section/sal-components/div/sal-components-stocks-financials/div/div/div/div/div/div[2]/div[1]/div[2]/div/div/div/div/div/div[2]/div/button"))).click()
-        time.sleep(30)
+        time.sleep(5)
         WebDriverWait(self.driver, 120).until(Ec.presence_of_element_located((By.ID, 'balanceSheet'))).click()
-        time.sleep(30)
+        time.sleep(5)
         self.driver.execute_script('window.scrollTo(0,300)')
         WebDriverWait(self.driver, 60).until(Ec.presence_of_element_located((By.XPATH,"/html/body/div[2]/div/div/div/div[2]/div[3]/div/main/div/div/div[1]/section/sal-components/div/sal-components-stocks-financials/div/div/div/div/div/div[2]/div[1]/div[2]/div/div/div/div/div/div[2]/div/button"))).click()
-        time.sleep(30)
+        time.sleep(5)
         check=os.path.isfile(''+self.path+'\Dump_Folder\Dump\Balance Sheet_Annual_As Originally Reported.xls')
         if check==False:
             WebDriverWait(self.driver, 60).until(Ec.presence_of_element_located((By.XPATH,
                                                                             "/html/body/div[2]/div/div/div/div[2]/div[3]/div/main/div/div/div[1]/section/sal-components/div/sal-components-stocks-financials/div/div/div/div/div/div[2]/div[1]/div[2]/div/div/div/div/div/div[2]/div/button"))).click()
         else:
             pass
-        time.sleep(30)
+        time.sleep(5)
         self.driver.get('https://www.morningstar.com/stocks/'+self.exchange+'/'+self.symbol+'/valuation')
         last_Hieght = self.driver.execute_script('return document.body.scrollHeight')
         while True:
@@ -134,7 +134,7 @@ class morning_star:
         time.sleep(5)
         actions.scroll_to_element(self.driver.find_element(By.ID, 'keyStatsOperatingAndEfficiency')).perform()
         WebDriverWait(self.driver, 60).until(Ec.presence_of_element_located((By.ID, 'keyStatsOperatingAndEfficiency'))).click()
-        time.sleep(10)
+        time.sleep(5)
         WebDriverWait(self.driver, 60).until(Ec.presence_of_element_located((By.XPATH,
                                                                             "/html/body/div[2]/div/div/div/div[2]/div[3]/div/main/div/div/div[1]/section/sal-components/div/sal-components-stocks-valuation/div/div[2]/div/div/div[1]/div[2]/button"))).click()
         check = os.path.isfile(''+self.path+'\Dump_Folder\Dump\OperatingAndEfficiency.xls')
@@ -143,7 +143,7 @@ class morning_star:
                                                                                 "/html/body/div[2]/div/div/div/div[2]/div[3]/div/main/div/div/div[1]/section/sal-components/div/sal-components-stocks-valuation/div/div[2]/div/div/div[1]/div[2]/button"))).click()
         else:
             pass
-        time.sleep(30)
+        time.sleep(5)
         actions.scroll_to_element(self.driver.find_element(By.ID, 'keyStatsfinancialHealth')).perform()
         WebDriverWait(self.driver, 60).until(Ec.presence_of_element_located((By.ID, 'keyStatsfinancialHealth'))).click()
         WebDriverWait(self.driver, 60).until(Ec.presence_of_element_located((By.XPATH,
@@ -154,7 +154,7 @@ class morning_star:
                                                                                 "/html/body/div[2]/div/div/div/div[2]/div[3]/div/main/div/div/div[1]/section/sal-components/div/sal-components-stocks-valuation/div/div[2]/div/div/div[1]/div[2]/button"))).click()
         else:
             pass
-        time.sleep(30)
+        time.sleep(5)
         actions.scroll_to_element(self.driver.find_element(By.ID, 'keyStatscashFlow')).perform()
         WebDriverWait(self.driver, 60).until(Ec.presence_of_element_located((By.ID, 'keyStatscashFlow'))).click()
         WebDriverWait(self.driver, 60).until(Ec.presence_of_element_located((By.XPATH,
@@ -165,7 +165,7 @@ class morning_star:
                                                                                 "/html/body/div[2]/div/div/div/div[2]/div[3]/div/main/div/div/div[1]/section/sal-components/div/sal-components-stocks-valuation/div/div[2]/div/div/div[1]/div[2]/button"))).click()
         else:
                 pass
-        time.sleep(30)
+        time.sleep(5)
         self.driver.close()
         self.Enquiry_one()
     def Enquiry_one(self):
@@ -212,11 +212,8 @@ class morning_star:
 
             if (self.cnt == 0):
                 with open(''+self.path+'\morning_star_Enquiry_1.csv',newline='',mode='w',encoding='utf-8') as f:
-                    fields=["My CODE","Exchange","Symbol","Company_Name","Year Ends","Currency","Revenue (Y1)","Revenue (Y2)","Revenue (Y3)","Revenue (Y4)","Revenue (Y5)",
-                        "Diluted Net Income(Y1)","Diluted Net Income(Y2)","Diluted Net Income(Y3)","Diluted Net Income(Y4)","Diluted Net Income(Y5)",
-                        "Diluted Weighted(Y1)","Diluted Weighted(Y2)","Diluted Weighted(Y3)","Diluted Weighted(Y4)","Diluted Weighted(Y5)",
-                        "Diluted EPS(Y1)","Diluted EPS(Y2)","Diluted EPS(Y3)","Diluted EPS(Y4)","Diluted EPS(Y5)"]
-                    data = [[self.code,self.exchange,self.symbol, self.compony_name,self.date,self.currency,self.data_1,self.data_2, self.data_3, self.data_4, self.data_5, self.Diluted_1, self.Diluted_2, self.Diluted_3,
+                    fields=["My CODE","Exchange","Symbol","Company_Name","Year Ends","Currency","Revenue (Y1)","Revenue (Y2)","Revenue (Y3)","Revenue (Y4)","Revenue (Y5)",	"NetIncome (Y1)","NetIncome (Y2)","NetIncome (Y3)","NetIncome (Y4)","NetIncome (Y5)","Shares Outstanding (Y1)","Shares Outstanding (Y2)","Shares Outstanding (Y3)","Shares Outstanding (Y4)","Shares Outstanding (Y5)","EPS (Y1)","EPS (Y2)","EPS (Y3)","EPS (Y4)","EPS (Y5)"]
+                    data = [[self.code,self.exchange,self.symbol, self.compony_name,self.data_1,self.data_2, self.data_3, self.data_4, self.data_5, self.Diluted_1, self.Diluted_2, self.Diluted_3,
                          self.Diluted_4, self.Diluted_5,
                          self.Weighted_1, self.Weighted_2, self.Weighted_3, self.Weighted_4, self.Weighted_5, self.EPS_1,
                          self.EPS_2, self.EPS_3, self.EPS_4, self.EPS_5]]
@@ -225,13 +222,13 @@ class morning_star:
                     csvwriter.writerows(data)
             else:
                 with open(''+self.path+'\morning_star_Enquiry_1.csv', newline='', mode='a', encoding='utf-8') as f:
-                    data = [self.code,self.exchange,self.symbol, self.compony_name,self.date,self.currency,self.data_1,self.data_2, self.data_3, self.data_4, self.data_5, self.Diluted_1, self.Diluted_2, self.Diluted_3,self.Diluted_4, self.Diluted_5,self.Weighted_1, self.Weighted_2, self.Weighted_3, self.Weighted_4, self.Weighted_5,
+                    data = [self.code,self.exchange,self.symbol, self.compony_name,self.data_1,self.data_2, self.data_3, self.data_4, self.data_5, self.Diluted_1, self.Diluted_2, self.Diluted_3,self.Diluted_4, self.Diluted_5,self.Weighted_1, self.Weighted_2, self.Weighted_3, self.Weighted_4, self.Weighted_5,
                              self.EPS_1,self.EPS_2, self.EPS_3, self.EPS_4, self.EPS_5]
                     csvwriter = csv.writer(f)
                     csvwriter.writerow(data)
         else:
             with open(''+self.path+'\morning_star_Enquiry_1.csv', newline='', mode='a', encoding='utf-8') as f:
-                data = ['E']
+                data = [self.code, self.exchange, self.symbol, self.compony_name,'E']
                 csvwriter = csv.writer(f)
                 csvwriter.writerow(data)
         self.Second_Enquiry()
@@ -260,26 +257,24 @@ class morning_star:
                     None] * (5 - len(Total_Assets_1))
             if (self.cnt == 0):
                 with open(''+self.path+'\morning_star_Enquiry_2.csv', newline='', mode='w', encoding='utf-8') as f:
-                    fields = ["My CODE", "Exchange", "Symbol", "Company_Name", "Year Ends", "Currency", "Total Assets(Y1)",
-                          "Total Assets(Y2)", "Total Assets(Y3)", "Total Assets(Y4)", "Total Assets(Y5)",
-                          "Total Equity(Y1)", "Total Equity(Y2)", "Total Equity(Y3)", "Total Equity(Y4)",
-                          "Total Equity(Y5)"]
+                    fields = ["My CODE", "Exchange", "Symbol", "Company_Name","Total Equity (Y1)","Total Equity (Y2)","Total Equity (Y3)","Total Equity (Y4)","Total Equity (Y5)","Total Assets (Y1)","Total Assets (Y2)","Total Assets (Y3)","Total Assets (Y4)","Total Assets (Y5)"]
                     data = [
-                    [self.code,self.exchange,self.symbol, self.compony_name,self.date,self.currency,self.Assets_1,
-                     self.Assets_2, self.Assets_3, self.Assets_4, self.Assets_5,
-                     self.Equity_1, self.Equity_2, self.Equity_3, self.Equity_4, self.Equity_5]]
+                    [self.code,self.exchange,self.symbol, self.compony_name,self.Equity_1, self.Equity_2, self.Equity_3, self.Equity_4, self.Equity_5,
+                     self.Assets_1,self.Assets_2, self.Assets_3, self.Assets_4, self.Assets_5]]
                     csvwriter = csv.writer(f)
                     csvwriter.writerow(fields)
                     csvwriter.writerows(data)
             else:
                 with open(''+self.path+'\morning_star_Enquiry_2.csv', newline='', mode='a', encoding='utf-8') as f:
-                    data = [self.code,self.exchange,self.symbol, self.compony_name,self.date,self.currency,self.Assets_1, self.Assets_2, self.Assets_3, self.Assets_4, self.Assets_5,
-                        self.Equity_1, self.Equity_2, self.Equity_3, self.Equity_4, self.Equity_5]
+                    data = [
+                        [self.code, self.exchange, self.symbol, self.compony_name, self.Equity_1, self.Equity_2,
+                         self.Equity_3, self.Equity_4, self.Equity_5,
+                         self.Assets_1, self.Assets_2, self.Assets_3, self.Assets_4, self.Assets_5]]
                     csvwriter = csv.writer(f)
                     csvwriter.writerow(data)
         else:
             with open(''+self.path+'\morning_star_Enquiry_2.csv', newline='', mode='a', encoding='utf-8') as f:
-                data = [self.code, self.exchange, self.symbol, self.compony_name,'E', self.currency]
+                data = [self.code, self.exchange, self.symbol, self.compony_name,'E']
                 csvwriter = csv.writer(f)
                 csvwriter.writerow(data)
         self.Third_Enquiry()
@@ -312,22 +307,21 @@ class morning_star:
                 Return_on_Invested_Capital_1) + [None] * (10 - len(Return_on_Invested_Capital_1))
             if (self.cnt == 0):
                 with open(''+self.path+'\morning_star_Enquiry_3.csv', newline='', mode='w', encoding='utf-8') as f:
-                    fields=["My CODE","Exchange","Symbol","Company_Name","Year Ends","Currency","Return on Equity %(Y1)","Return on Equity %(Y2)","Return on Equity %(Y3)","Return on Equity %(Y4)","Return on Equity %(Y5)","Return on Equity %(Y6)","Return on Equity %(Y7)","Return on Equity %(Y8)","Return on Equity %(Y9)","Return on Equity %(Y10)",
-                        "Return on Invested(Y1)","Return on Invested(Y2)","Return on Invested(Y3)","Return on Invested(Y4)","Return on Invested(Y5)","Return on Invested(Y6)","Return on Invested(Y7)","Return on Invested(Y8)","Return on Invested(Y9)","Return on Invested(Y10)"]
-                    data=[[self.code,self.exchange,self.symbol, self.compony_name,self.currency,self.date,self.Return_1, self.Return_2, self.Return_3, self.Return_4, self.Return_5, self.Return_6,self.Return_7, self.Return_8, self.Return_9, self.Return_10,
+                    fields=["My CODE","Exchange","Symbol","Company_Name","R.O.E. (Y1)","R.O.E. (Y2)"	,"R.O.E. (Y3)","R.O.E. (Y4)","R.O.E. (Y5)","R.O.E. (Y6)","R.O.E. (Y7)","R.O.E. (Y8)","R.O.E. (Y9)","R.O.E. (Y10)","R.O.I.C. (Y1)","R.O.I.C. (Y2)","R.O.I.C. (Y3)","R.O.I.C. (Y4)","R.O.I.C. (Y5)","R.O.I.C. (Y6)","R.O.I.C. (Y7)","R.O.I.C. (Y8)","R.O.I.C. (Y9)","R.O.I.C. (Y10)"]
+                    data=[[self.code,self.exchange,self.symbol, self.compony_name,self.Return_1, self.Return_2, self.Return_3, self.Return_4, self.Return_5, self.Return_6,self.Return_7, self.Return_8, self.Return_9, self.Return_10,
                        self.Invested_1,self.Invested_2,self.Invested_3,self.Invested_4,self.Invested_5,self.Invested_6,self.Invested_7,self.Invested_8,self.Invested_9,self.Invested_10,]]
                     csvwriter = csv.writer(f)
                     csvwriter.writerow(fields)
                     csvwriter.writerows(data)
             else:
                 with open(''+self.path+'\morning_star_Enquiry_3.csv', newline='', mode='a', encoding='utf-8') as f:
-                    data = [ self.code,self.exchange,self.symbol, self.compony_name,self.date,self.currency,self.Return_1,self.Return_2, self.Return_3, self.Return_4, self.Return_5, self.Return_6, self.Return_7,self.Return_8, self.Return_9, self.Return_10,
+                    data = [ self.code,self.exchange,self.symbol, self.compony_name,self.Return_1,self.Return_2, self.Return_3, self.Return_4, self.Return_5, self.Return_6, self.Return_7,self.Return_8, self.Return_9, self.Return_10,
                          self.Invested_1, self.Invested_2, self.Invested_3, self.Invested_4, self.Invested_5,self.Invested_6, self.Invested_7, self.Invested_8, self.Invested_9, self.Invested_10, ]
                     csvwriter = csv.writer(f)
                     csvwriter.writerow(data)
         else:
             with open(''+self.path+'\morning_star_Enquiry_3.csv', newline='', mode='a', encoding='utf-8') as f:
-                data = [self.code, self.exchange, self.symbol, self.compony_name, "E", self.currency]
+                data = [self.code, self.exchange, self.symbol, self.compony_name, "E"]
                 csvwriter = csv.writer(f)
                 csvwriter.writerow(data)
         self.Four_Enquiry()
@@ -362,7 +356,7 @@ class morning_star:
                 with open(''+self.path+'\morning_star_Enquiry_4.csv', newline='', mode='w', encoding='utf-8') as f:
                     fields=["My CODE","Exchange","Symbol","Company_Name","Year Ends","Currency","Book Value/Share(Y1)","Book Value/Share(Y2)","Book Value/Share(Y3)","Book Value/Share(Y4)","Book Value/Share(Y5)","Book Value/Share(Y6)","Book Value/Share(Y7)","Book Value/Share(Y8)","Book Value/Share(Y9)","Book Value/Share(Y10)",
                         "Current Ratio(Y1)","Current Ratio(Y2)","Current Ratio(Y3)","Current Ratio(Y4)","Current Ratio(Y5)","Current Ratio(Y6)","Current Ratio(Y7)","Current Ratio(Y8)","Current Ratio(Y9)","Current Ratio(Y10)"]
-                    data=[[self.code,self.exchange,self.symbol, self.compony_name,self.date,self.currency,self.Value_1,self.Value_2,self.Value_3,self.Value_4,self.Value_5,self.Value_6,self.Value_7,self.Value_8,self.Value_9,self.Value_10,
+                    data=[[self.code,self.exchange,self.symbol, self.compony_name,self.Value_1,self.Value_2,self.Value_3,self.Value_4,self.Value_5,self.Value_6,self.Value_7,self.Value_8,self.Value_9,self.Value_10,
                        self.Ratio_1,self.Ratio_2,self.Ratio_3,self.Ratio_4,self.Ratio_5,self.Ratio_6,self.Ratio_7,self.Ratio_8,self.Ratio_9,self.Ratio_10,
                        ]]
                     csvwriter = csv.writer(f)
@@ -370,13 +364,13 @@ class morning_star:
                     csvwriter.writerows(data)
             else:
                 with open(''+self.path+'\morning_star_Enquiry_4.csv', newline='', mode='a', encoding='utf-8') as f:
-                    data = [ self.code,self.exchange,self.symbol, self.compony_name,self.date,self.currency,self.Value_1,self.Value_2, self.Value_3, self.Value_4, self.Value_5, self.Value_6, self.Value_7, self.Value_8,self.Value_9, self.Value_10,
+                    data = [ self.code,self.exchange,self.symbol, self.compony_name,self.Value_1,self.Value_2, self.Value_3, self.Value_4, self.Value_5, self.Value_6, self.Value_7, self.Value_8,self.Value_9, self.Value_10,
                          self.Ratio_1, self.Ratio_2, self.Ratio_3, self.Ratio_4, self.Ratio_5, self.Ratio_6, self.Ratio_7,self.Ratio_8, self.Ratio_9, self.Ratio_10]
                     csvwriter = csv.writer(f)
                     csvwriter.writerow(data)
         else:
             with open(''+self.path+'\morning_star_Enquiry_4.csv', newline='', mode='a', encoding='utf-8') as f:
-                data = [self.code, self.exchange, self.symbol, self.compony_name, "E", self.currency]
+                data = [self.code, self.exchange, self.symbol, self.compony_name, "E"]
                 csvwriter = csv.writer(f)
                 csvwriter.writerow(data)
         self.Fifth_Enquiry()
@@ -408,23 +402,23 @@ class morning_star:
                 Free_Cash_Flow_Share_1) + [None] * (10 - len(Free_Cash_Flow_Share_1))
             if (self.cnt == 0):
                 with open(''+self.path+'\morning_star_Enquiry_5.csv', newline='', mode='w', encoding='utf-8') as f:
-                    fields = ["My CODE", "Symbol", "Exchange", "Company_Name", "Year Ends", "Currency","Cap Ex as a % (Y1)", "Cap Ex as a % (Y2)", "Cap Ex as a % (Y3)", "Cap Ex as a % (Y4)","Cap Ex as a % (Y5)", "Cap Ex as a % (Y6)", "Cap Ex as a % (Y7)", "Cap Ex as a % (Y8)","Cap Ex as a % (Y9)", "Cap Ex as a % (Y10)","Free Cash Flow/Share(Y1)", "Free Cash Flow/Share(Y2)", "Free Cash Flow/Share(Y3)",
+                    fields = ["My CODE", "Symbol", "Exchange",  "Currency","Cap Ex as a % (Y1)", "Cap Ex as a % (Y2)", "Cap Ex as a % (Y3)", "Cap Ex as a % (Y4)","Cap Ex as a % (Y5)", "Cap Ex as a % (Y6)", "Cap Ex as a % (Y7)", "Cap Ex as a % (Y8)","Cap Ex as a % (Y9)", "Cap Ex as a % (Y10)","Free Cash Flow/Share(Y1)", "Free Cash Flow/Share(Y2)", "Free Cash Flow/Share(Y3)",
                               "Free Cash Flow/Share(Y4)", "Free Cash Flow/Share(Y5)", "Free Cash Flow/Share(Y6)","Free Cash Flow/Share(Y7)", "Free Cash Flow/Share(Y8)", "Free Cash Flow/Share(Y9)","Free Cash Flow/Share(Y10)"]
-                    data=[[self.code,self.exchange,self.symbol, self.compony_name,self.date,self.currency,self.Sales_1,self.Sales_2, self.Sales_3, self.Sales_4, self.Sales_5, self.Sales_6, self.Sales_7, self.Sales_8,self.Sales_9, self.Sales_10,
+                    data=[[self.code,self.exchange,self.symbol, self.compony_name,self.Sales_1,self.Sales_2, self.Sales_3, self.Sales_4, self.Sales_5, self.Sales_6, self.Sales_7, self.Sales_8,self.Sales_9, self.Sales_10,
                      self.Flow_1, self.Flow_2, self.Flow_3, self.Flow_4, self.Flow_5, self.Flow_6, self.Flow_7,self.Flow_8, self.Flow_9, self.Flow_10
                        ]]
                     csvwriter = csv.writer(f)
                     csvwriter.writerow(fields)
                     csvwriter.writerows(data)
             else:
-                with open(''+self.path+'morning_star_Enquiry_5.csv', newline='', mode='a', encoding='utf-8') as f:
-                    data = [self.code,self.exchange,self.symbol, self.compony_name,self.date,self.currency,self.Sales_1,self.Sales_2, self.Sales_3, self.Sales_4, self.Sales_5, self.Sales_6, self.Sales_7, self.Sales_8,self.Sales_9, self.Sales_10,
+                with open(''+self.path+'\morning_star_Enquiry_5.csv', newline='', mode='a', encoding='utf-8') as f:
+                    data = [self.code,self.exchange,self.symbol, self.compony_name,self.Sales_1,self.Sales_2, self.Sales_3, self.Sales_4, self.Sales_5, self.Sales_6, self.Sales_7, self.Sales_8,self.Sales_9, self.Sales_10,
                      self.Flow_1, self.Flow_2, self.Flow_3, self.Flow_4, self.Flow_5, self.Flow_6, self.Flow_7,self.Flow_8, self.Flow_9, self.Flow_10]
                     csvwriter = csv.writer(f)
                     csvwriter.writerow(data)
         else:
             with open(''+self.path+'\morning_star_Enquiry_5.csv', newline='', mode='a', encoding='utf-8') as f:
-                data = [self.code, self.exchange, self.symbol, self.compony_name, "E", self.currency]
+                data = [self.code, self.exchange, self.symbol, self.compony_name, "E"]
                 csvwriter = csv.writer(f)
                 csvwriter.writerow(data)
         shutil.rmtree(''+self.path+'\Dump_Folder\Dump')
@@ -453,16 +447,16 @@ class morning_star:
                     None] * (10 - len(lst))
             if (self.cnt == 0):
                 with open(''+self.path+'\morning_star_Enquiry_6.csv', newline='', mode='w', encoding='utf-8') as f:
-                    fields = ["My CODE", "Exchange", "Symbol", "Company_Name", "Year Ends", "Currency", "Dividends(Y1)",
+                    fields = ["My CODE", "Exchange", "Symbol", "Company_Name", "Dividends(Y1)",
                               "Dividends(Y2)", "Dividends(Y3)", "Dividends(Y4)", "Dividends(Y5)", "Dividends(Y6)",
                               "Dividends(Y7)", "Dividends(Y8)", "Dividends(Y9)", "Dividends(Y10)"]
-                    data = [[self.code, self.exchange, self.symbol, self.compony_name, self.date, self.currency,self.Dividend_1, self.Dividend_2, self.Dividend_3, self.Dividend_4, self.Dividend_5,self.Dividend_6, self.Dividend_7, self.Dividend_8, self.Dividend_9, self.Dividend_10]]
+                    data = [[self.code, self.exchange, self.symbol, self.compony_name, self.Dividend_1, self.Dividend_2, self.Dividend_3, self.Dividend_4, self.Dividend_5,self.Dividend_6, self.Dividend_7, self.Dividend_8, self.Dividend_9, self.Dividend_10]]
                     csvwriter = csv.writer(f)
                     csvwriter.writerow(fields)
                     csvwriter.writerows(data)
             else:
                 with open(''+self.path+'\morning_star_Enquiry_6.csv', newline='', mode='a', encoding='utf-8') as f:
-                    data = [self.code, self.exchange, self.symbol, self.compony_name, self.date, self.currency,
+                    data = [self.code, self.exchange, self.symbol, self.compony_name,
                             self.Dividend_1, self.Dividend_2, self.Dividend_3, self.Dividend_4, self.Dividend_5,
                             self.Dividend_6, self.Dividend_7, self.Dividend_8, self.Dividend_9, self.Dividend_10]
                     csvwriter = csv.writer(f)
@@ -475,8 +469,9 @@ class morning_star:
 
         self.driver.close()
         self.cnt += 1
-        if self.length < self.cnt:
+        if self.length > self.cnt:
             self.Download_Excel()
         else:
             print("Task completed")
+object=morning_star()
 object.counter()
